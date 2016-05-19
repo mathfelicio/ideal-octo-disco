@@ -25,9 +25,12 @@ dpkg -s nginx &>/dev/null ||
 	apt-get -y install nginx
 }
 
-if [ -d "/etc/nginx/sites-enabled" ]; then
-	rm -rf /etc/nginx/sites-enabled
-	cp -r /vagrant/vagrant-config-files/nginx/sites-enabled /etc/nginx
+service nginx start
+
+if [ -d "/etc/nginx/sites-enabled" ]
+	then
+		rm -rf /etc/nginx/sites-enabled
+		cp -r /vagrant/vagrant-config-files/nginx/sites-enabled /etc/nginx
 fi
 
-service nginx start 
+service nginx restart;
