@@ -1,15 +1,35 @@
 #!/bin/bash
 
+apt-get update -y
+
+dpkg -s nginx &>/dev/null ||
+{
+	apt-get -y install nginx
+}
+
+dpkg -s tmux &>/dev/null ||
+{
+	apt-get -y install tmux
+}
+
+dpkg -s curl &>/dev/null ||
+{
+	apt-get install curl
+}
+
+dpkg -s wget &>/dev/null ||
+{
+	apt-get install wget
+}
 command -v php &>/dev/null ||
 {
 	sudo apt-get install python-software-properties
 	sudo LC_ALL=C.UTF-8 add-apt-repository ppa:ondrej/php
-	apt-get -y update
-	apt-get install php7.0 php7.0-fpm php7.0-mysql -y
+	apt-get update -y
+	apt-get install php7.0 php7.0-fpm  php7.0-cli php7.0-curl php7.0-gd  php7.0-mysql php7.0-intl -y
+	apt-get install php-memcached -y
 	apt-get --purge autoremove -y
 }
-
-apt-get -y update
 
 command -v composer &>/dev/null ||
 {
@@ -18,11 +38,6 @@ command -v composer &>/dev/null ||
 	php composer-setup.php
 	php -r "unlink('composer-setup.php');"
 	mv composer.phar /usr/local/bin/composer
-}
-
-dpkg -s nginx &>/dev/null ||
-{
-	apt-get -y install nginx
 }
 
 service nginx start
