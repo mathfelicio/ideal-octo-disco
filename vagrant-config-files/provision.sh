@@ -27,6 +27,7 @@ command -v php &>/dev/null ||
 	sudo LC_ALL=C.UTF-8 add-apt-repository ppa:ondrej/php
 	apt-get update -y
 	apt-get install php7.0 php7.0-fpm  php7.0-cli php7.0-curl php7.0-gd  php7.0-mysql php7.0-intl -y
+	apt-get install php7.0-dev -y
 	apt-get install php-memcached -y
 	apt-get --purge autoremove -y
 }
