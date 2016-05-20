@@ -7,6 +7,12 @@ dpkg -s nginx &>/dev/null ||
 	apt-get install nginx -y
 }
 
+dpkg -s nojdejs &>/dev/null ||
+{
+	curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
+	sudo apt-get install -y nodejs
+}
+
 dpkg -s curl &>/dev/null ||
 {
 	apt-get install curl -y
