@@ -23,12 +23,12 @@ dpkg -s wget &>/dev/null ||
 }
 command -v php &>/dev/null ||
 {
-	sudo apt-get install python-software-properties
-	sudo LC_ALL=C.UTF-8 add-apt-repository ppa:ondrej/php
+	apt-get autoremove --purge php5-*
+	add-apt-repository ppa:ondrej/php
 	apt-get update -y
-	apt-get install php7.0 php7.0-fpm  php7.0-cli php7.0-curl php7.0-gd  php7.0-mysql php7.0-intl -y
-	apt-get install php7.0-dev -y
-	apt-get install php-memcached -y
+	apt-get install php7.0-fpm php7.0-cli php7.0-common php7.0-json php7.0-opcache php7.0-mysql php7.0-phpdbg php7.0-mbstring php7.0-gd php7.0-imap php7.0-ldap php7.0-pgsql php7.0-pspell php7.0-recode php7.0-snmp php7.0-tidy php7.0-dev php7.0-intl php7.0-gd php7.0-curl php7.0-zip php7.0-xml -y
+	apt-get install php-redis -y
+	apt-get install php-xdebug -y
 	apt-get --purge autoremove -y
 }
 
@@ -43,25 +43,13 @@ command -v composer &>/dev/null ||
 
 service nginx start
 
-if [ ! -d "/home/vagrant/xdebug-2.4.0" ]
-	then
-		tar -xvzf /vagrant/vagrant-config-files/xdebug/xdebug-2.4.0.tgz -C /home/vagrant
-		cd /home/vagrant/xdebug-2.4.0 && phpize
-		cd /home/vagrant/xdebug-2.4.0 && ./configure
-		make -C /home/vagrant/xdebug-2.4.0
-		cp /home/vagrant/xdebug-2.4.0/modules/xdebug.so /usr/lib/php/20151012
-fi
-
-if [ -f "/etc/php/7.0/fpm/php.ini" ]
-	then
-		rm -rf /etc/php/7.0/fpm/php.ini
-		cp -r /vagrant/vagrant-config-files/php/php.ini /etc/php/7.0/fpm/php.ini
-fi
-
 if [ -d "/etc/nginx/sites-enabled" ]
 	then
 		rm -rf /etc/nginx/sites-enabled
 		cp -r /vagrant/vagrant-config-files/nginx/sites-enabled /etc/nginx
 fi
 
-service nginx restart;
+service php7.0-fpm restart
+service nginx restart
+
+
