@@ -4,22 +4,22 @@ apt-get update -y
 
 dpkg -s nginx &>/dev/null ||
 {
-	apt-get -y install nginx
+	apt-get install nginx -y
 }
 
 dpkg -s tmux &>/dev/null ||
 {
-	apt-get -y install tmux
+	apt-get install tmux -y
 }
 
 dpkg -s curl &>/dev/null ||
 {
-	apt-get install curl
+	apt-get install curl -y
 }
 
 dpkg -s wget &>/dev/null ||
 {
-	apt-get install wget
+	apt-get install wget -y
 }
 command -v php &>/dev/null ||
 {
