@@ -30,6 +30,15 @@ command -v php &>/dev/null ||
 	apt-get install php7.0-dev -y
 	apt-get install php-memcached -y
 	apt-get --purge autoremove -y
+
+	cd ~ 
+	wget http://xdebug.org/files/xdebug-2.4.0.tgz
+	tar -xvzf xdebug-2.4.0.tgz
+	cd xdebug-2.4.0
+	phpize
+	./config
+	make
+	cp modules/xdebug.so /usr/lib/php/20151012
 }
 
 command -v composer &>/dev/null ||
@@ -42,6 +51,13 @@ command -v composer &>/dev/null ||
 }
 
 service nginx start
+
+
+if [ -f "/etc/php/7.0/fpm/php.ini" ]
+	then
+		rm -rf /etc/php/7.0/fpm/php.ini
+		cp -r /vagrant/vagrant-config-files/php/php.ini /etc/php/7.0/fpm/php.ini
+fi
 
 if [ -d "/etc/nginx/sites-enabled" ]
 	then
