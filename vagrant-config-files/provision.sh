@@ -7,11 +7,6 @@ dpkg -s nginx &>/dev/null ||
 	apt-get install nginx -y
 }
 
-dpkg -s tmux &>/dev/null ||
-{
-	apt-get install tmux -y
-}
-
 dpkg -s curl &>/dev/null ||
 {
 	apt-get install curl -y
